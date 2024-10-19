@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-8 bg-light" style="border:1px solid ; background-color:#1111; border-radius: 10px;">
+    <h1 class="m-4 text-center">User Records <a href="/add/" class="btn btn-primary">Add User</a></h1>
+    <table class="table table-bordered">
+        <tr class="bg-info text-white text-center ">
+            <td > SR NO.</td>
+            <td> Name </td>
+            <td> Email  </td>
+            <td> Mobile Number </td>
+            <td> Date of birth </td>
+            <td> Photo </td>
+            <td>Password</td>
+            <td> Action  </td>
+        </tr>
+        {% for user in users%}
+        <tr class="text-center">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.mobile_number }}</td>
+            <td>{{ user.date_of_birth }}</td>
+            <td><img src="{{ user.photo.url }}" class="rounded-circle" height="70px" width="70px"></td>
+            <td>{{ user.password }}</td>
+            <td>
+                <a href="/edit/{{ user.id }}" class="btn btn-success">Edit</a>/
+                <a href="/delete/{{ user.id }}" class="btn btn-danger">Delete</a>/
+                <a href="/view/{{ user.id }}" class="btn btn-primary">View</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="text-center container mt-5">
+    {% if users.has_previous %}
+    <a href="?page={{ users.previous_page_number }}">
+        Previous
+    </a>
+    {% endif %}
+    <a href="">{{users.number }}</a>
+    {% if users.has_next %}
+    <a href="?page={{ users.next_page_number }}">
+        Next
+    </a>
+    {% endif %}
+    </div>
+</div>
+</body>
+</html>
